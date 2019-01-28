@@ -1,4 +1,8 @@
-#!/bin/bash -xe
+#!/usr/bin/env bash
 
-ln -sf ${PWD}/vimrc ~/.vimrc
-ln -sf ${PWD}/bashrc ~/.bashrc
+set -xueo pipefail
+
+top_dir="${PWD}"
+
+ln -sf "${top_dir}/vimrc" ~/.vimrc
+ln -sf "${top_dir}/bashrc" ~/.bashrc
