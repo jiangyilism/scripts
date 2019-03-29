@@ -1,0 +1,48 @@
+[user]
+	name = Jiang Yi
+	email = jiangyilism@gmail.com
+[core]
+	editor = vim
+	whitespace = fix,space-before-tab,trailing-space,cr-at-eol,-indent-with-non-tab
+	excludesfile = ~/.gitignore
+[rerere]
+	enabled = 1
+	autoupdate = 1
+[push]
+	default = matching
+[color]
+	ui = auto
+[color "branch"]
+	current = yellow bold
+	local = green bold
+	remote = cyan bold
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[color "status"]
+	added = green bold
+	changed = yellow bold
+	untracked = red bold
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[github]
+	user = pksunkara
+	token = token
+[gitflow "prefix"]
+	feature = feature-
+	release = release-
+	hotfix = hotfix-
+	support = support-
+	versiontag = v
+[sequence]
+	editor = interactive-rebase-tool
+[alias]
+	co = checkout
+	df = diff -w
+	st = status
+	sh = show -w
