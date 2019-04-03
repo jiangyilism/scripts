@@ -40,8 +40,9 @@
 	support = support-
 	versiontag = v
 [sequence]
-	editor = interactive-rebase-tool
+	editor = vim
 [alias]
+	br = branch
 	co = checkout
 	df = diff -w
 	st = status

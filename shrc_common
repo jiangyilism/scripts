@@ -4,21 +4,49 @@ alias grep='grep --color=auto --exclude-dir=.git --binary-files=without-match --
 alias df='df --human-readable --local --exclude-type="tmpfs"'
 alias du='du --human-readable'
 
-if [[ -f $(which clang) ]]; then
-	export CXX=clang++
-	export CC=clang
-	export AR=llvm-ar
-	export RANLIB=llvm-ranlib
-elif [[ -f $(which gcc) ]]; then
-	export CXX=g++
-	export CC=gcc
-	export AR=ar
-	export RANLIB=ranlib
-fi
+function toolchain_env_clear() {
+	unset CXX
+	unset CC
+	unset AR
+	unset RANLIB
+	unset CFLAGS
+	unset CXXFLAGS
+	unset LDFLAGS
+}
 
-export CFLAGS="-O2 -march=native -pipe -Wall -Wextra -Wmissing-declarations -Wnull-dereference -Wredundant-decls -Wshadow"
-export CXXFLAGS="${CFLAGS} -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wzero-as-null-pointer-constant"
-export LDFLAGS="-Wl,-O2 -Wl,--as-needed"
+function gcc_env_setup() {
+	local toolchain_dir=$(dirname $(which gcc))
+
+	if [[ ! -d ${toolchain_dir} ]]; then
+		echo "no clang found"
+		return 1
+	fi
+
+	export CXX=${toolchain_dir}/g++
+	export CC=${toolchain_dir}/gcc
+	export AR=${toolchain_dir}/gcc-ar
+	export RANLIB=${toolchain_dir}/gcc-ranlib
+	export CFLAGS="-O2 -march=native -pipe -Wall -Wextra -Wmissing-declarations -Wnull-dereference -Wredundant-decls -Wshadow"
+	export CXXFLAGS="${CFLAGS} -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wzero-as-null-pointer-constant"
+	export LDFLAGS="-Wl,-O2 -Wl,--as-needed"
+}
+
+function clang_env_setup() {
+	local toolchain_dir=$(dirname $(which clang))
+
+	if [[ ! -d ${toolchain_dir} ]]; then
+		echo "no clang found"
+		return 1
+	fi
+
+	export CXX=${toolchain_dir}/clang++
+	export CC=${toolchain_dir}/clang
+	export AR=${toolchain_dir}/llvm-ar
+	export RANLIB=${toolchain_dir}/llvm-ranlib
+	export CFLAGS="-O2 -march=native -pipe -Wall -Wextra -Wmissing-declarations -Wnull-dereference -Wredundant-decls -Wshadow"
+	export CXXFLAGS="${CFLAGS} -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wzero-as-null-pointer-constant"
+	export LDFLAGS="-Wl,-O2 -Wl,--as-needed"
+}
 
 export PS4='+\e[90m${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}: }\e[0m'
 
