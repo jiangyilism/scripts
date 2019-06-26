@@ -5,13 +5,13 @@ set -xueo pipefail
 function link_to_home_dir() {
 	local filename=${1}
 	local src_path=${PWD}/${filename}
-	local dst_path=~/.${filename}
+	local dst_path=${HOME}/.${filename}
 
 	ln --symbolic --force ${src_path} ${dst_path}
 }
 
 function main() {
-	for filename in bashrc gitconfig shrc_common vimrc zshrc; do
+	for filename in bashrc gitconfig shrc_common vimrc zshrc tmux.conf; do
 		link_to_home_dir ${filename}
 	done
 }
