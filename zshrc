@@ -8,7 +8,7 @@ HISTFILE=~/.zsh_history  #Where to save history to disk
 SAVEHIST=2048            #Number of history entries to save to disk
 HISTDUP=erase            #Erase duplicates in the history file
 
-. ~/.shrc_common
+. "${HOME}/.shrc_common"
 
 bindkey -e
 bindkey "^[[1;5C" forward-word

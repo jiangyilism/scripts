@@ -3,11 +3,12 @@
 	email = jiangyilism@gmail.com
 [core]
 	editor = vim
-	whitespace = fix,space-before-tab,trailing-space,cr-at-eol,-indent-with-non-tab
 	excludesfile = ~/.gitignore
+	pager = less -x2
+	whitespace = fix,space-before-tab,trailing-space,cr-at-eol,-indent-with-non-tab
 [rerere]
-	enabled = 1
 	autoupdate = 1
+	enabled = 1
 [pull]
 	rebase = true
 [push]
@@ -19,26 +20,30 @@
 	local = green bold
 	remote = cyan bold
 [color "diff"]
-	meta = yellow bold
 	frag = magenta bold
-	old = red bold
+	meta = yellow bold
 	new = green bold
+	old = red bold
 	whitespace = red reverse
 [color "status"]
 	added = green bold
 	changed = yellow bold
 	untracked = red bold
 [diff]
+	algorithm = histogram
+	context = 8
 	tool = vimdiff
 [difftool]
 	prompt = false
+[am]
+	threeWay = true
 [github]
 	user = pksunkara
 	token = token
 [gitflow "prefix"]
 	feature = feature-
-	release = release-
 	hotfix = hotfix-
+	release = release-
 	support = support-
 	versiontag = v
 [sequence]
@@ -47,5 +52,5 @@
 	br = branch
 	co = checkout
 	df = diff -w
-	st = status
 	sh = show -w
+	st = status

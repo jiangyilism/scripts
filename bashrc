@@ -9,7 +9,7 @@ HISTCONTROL=ignoreboth
 HISTSIZE=1024
 HISTFILESIZE=2048
 
-. ~/.shrc_common
+. "${HOME}/.shrc_common"
 
 start_cmd_timer
 
