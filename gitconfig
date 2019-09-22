@@ -1,19 +1,17 @@
-[user]
-	name = Jiang Yi
-	email = jiangyilism@gmail.com
-[core]
-	editor = vim
-	excludesfile = ~/.gitignore
-	pager = less -x2
-	whitespace = fix,space-before-tab,trailing-space,cr-at-eol,-indent-with-non-tab
-[rerere]
-	autoupdate = 1
-	enabled = 1
-[pull]
-	rebase = true
-[push]
-	default = matching
+[alias]
+	br = branch
+	co = checkout
+	df = diff -w
+	sh = show -w
+	st = status
+[am]
+	threeWay = true
+[branch]
+	autosetupmerge = always
+	autosetuprebase = always
 [color]
+	interactive = auto
+	pager = true
 	ui = auto
 [color "branch"]
 	current = yellow bold
@@ -29,28 +27,37 @@
 	added = green bold
 	changed = yellow bold
 	untracked = red bold
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+	whitespace = fix,space-before-tab,trailing-space,cr-at-eol,-indent-with-non-tab
 [diff]
 	algorithm = histogram
 	context = 8
 	tool = vimdiff
 [difftool]
 	prompt = false
-[am]
-	threeWay = true
-[github]
-	user = pksunkara
-	token = token
 [gitflow "prefix"]
 	feature = feature-
 	hotfix = hotfix-
 	release = release-
 	support = support-
 	versiontag = v
+[github]
+	token = token
+	user = jiangyilism
+[pull]
+	rebase = true
+[push]
+	default = current
+[rebase]
+	autosquash = true
+	abbreviateCommands = true
+[rerere]
+	autoupdate = 1
+	enabled = 1
 [sequence]
 	editor = vim
-[alias]
-	br = branch
-	co = checkout
-	df = diff -w
-	sh = show -w
-	st = status
+[user]
+	email = jiangyilism@gmail.com
+	name = Jiang Yi

@@ -2,12 +2,12 @@ if [[ ! $- == *i* ]]; then
 	return
 fi
 
-shopt -s histappend
 shopt -s checkwinsize
+shopt -s histappend
 
 HISTCONTROL=ignoreboth
-HISTSIZE=1024
 HISTFILESIZE=2048
+HISTSIZE=1024
 
 . "${HOME}/.shrc_common"
 

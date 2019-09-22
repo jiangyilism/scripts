@@ -1,8 +1,9 @@
-alias ll='ls -l --classify --human-readable'
-alias ls='ls --color=auto --all'
-alias grep='grep --color=auto --exclude-dir=.git --binary-files=without-match --line-number'
+alias code='code -g'
 alias df='df --human-readable --local --exclude-type="tmpfs"'
 alias du='du --human-readable'
+alias grep='grep --color=auto --exclude-dir=.git --binary-files=without-match --line-number'
+alias ll='ls -l --classify --human-readable'
+alias ls='ls --color=auto --all'
 
 function toolchain_env_clear() {
 	unset CXX
@@ -15,7 +16,7 @@ function toolchain_env_clear() {
 }
 
 function gcc_env_setup() {
-	local toolchain_dir=$(dirname $(which gcc))
+	local -r toolchain_dir=$(dirname $(which gcc))
 
 	if [[ ! -d ${toolchain_dir} ]]; then
 		echo "no clang found"
@@ -32,7 +33,7 @@ function gcc_env_setup() {
 }
 
 function clang_env_setup() {
-	local toolchain_dir=$(dirname $(which clang))
+	local -r toolchain_dir=$(dirname $(which clang))
 
 	if [[ ! -d ${toolchain_dir} ]]; then
 		echo "no clang found"
@@ -48,18 +49,18 @@ function clang_env_setup() {
 	export LDFLAGS="-Wl,-O2 -Wl,--as-needed"
 }
 
-export PS4='+\e[90m${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}: }\e[0m'
+export PS4='+\e[90m$(basename ${BASH_SOURCE}):${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}: }\e[0m'
 
 cmd_timestamp_file="/tmp/${USER}.${$}.cmd_timestamp"
 cmd_exe_time_file="/tmp/${USER}.${$}.cmd_exe_time"
 trap 'rm -f ${cmd_timestamp_file} ${cmd_exe_time_file}' EXIT
 
 function seconds_to_str() {
-	local total_sec=${1:-0}
-	local sec=$((total_sec % 60))
-	local min=$(((total_sec / 60) % 60))
-	local hour=$(((total_sec / 3600) % 60))
-	local day=$(((total_sec / 86400)))
+	local -r total_sec=${1:-0}
+	local -r sec=$((total_sec % 60))
+	local -r min=$(((total_sec / 60) % 60))
+	local -r hour=$(((total_sec / 3600) % 60))
+	local -r day=$(((total_sec / 86400)))
 
 	[[ ${day} -gt 0 ]] && printf '%dd' ${day}
 	[[ ${hour} -gt 0 ]] && printf '%02dh' ${hour}
@@ -68,24 +69,24 @@ function seconds_to_str() {
 }
 
 function time_elapsed_since() {
-	local timestamp0="$(date +'%D %H:%M:%S')"
-	local timestamp1="${1}"
-	local sec0=$(date -d "${timestamp0}" +%s)
-	local sec1=$(date -d "${timestamp1}" +%s)
+	local -r timestamp0="$(date +'%D %H:%M:%S')"
+	local -r timestamp1="${1}"
+	local -r sec0=$(date -d "${timestamp0}" +%s)
+	local -r sec1=$(date -d "${timestamp1}" +%s)
 
 	echo $(seconds_to_str $((sec0 - sec1)))
 }
 
 function prompt_command() {
-	local exit_code=${?}
+	local -r exit_code=${?}
 
 	if [[ -f ${cmd_exe_time_file} ]]; then
 		cat ${cmd_exe_time_file}
 		return
 	fi
 
-	local prev_timestamp="$(cut -d' ' -f2 "${cmd_timestamp_file}")"
-	local cur_timestamp="$(date +%H:%M:%S)"
+	local -r prev_timestamp="$(cut -d' ' -f2 "${cmd_timestamp_file}")"
+	local -r cur_timestamp="$(date +%H:%M:%S)"
 
 	printf "\e[01;$((${exit_code}==0 ? 32 : 31))m\n----[%s - %s | exe time: %s | exit code: %03d]----\e[0m\n" ${prev_timestamp} ${cur_timestamp} $(time_elapsed_since "$(< ${cmd_timestamp_file})") ${exit_code} | tee ${cmd_exe_time_file}
 }
